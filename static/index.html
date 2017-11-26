@@ -1,0 +1,45 @@
+<!Doctype html>
+<html>
+  <head>
+    <title>Counter Test</title>
+    <link rel="stylesheet" href="app.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h3 class="title">Counter App</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="text-label">Add New</label>
+            </div>
+            <div class="col-md-5 text-right">
+              <input id="title" type="text" class="form-control" />
+            </div>
+            <div class="col-md-1 text-right">
+              <button
+                id="btn-submit"
+                type="button"
+                class="glyphicon glyphicon-plus"
+                onclick="addItem()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="list" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
