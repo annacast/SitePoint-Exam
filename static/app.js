@@ -26,7 +26,8 @@ function getAll() {
     '<div class="col-md-10 col-md-offset-1 text-center">' +
     'No data found. Please add new item.' +
     '</div>' +
-    '</div>'
+    '</div>';
+    $('div.sum').css('display', 'none');
   } else {
     list = _.map(__Counters, (item) => {
       var { id, title, count } = item;
@@ -50,8 +51,10 @@ function getAll() {
         '</div>'
       );
     }).join('');
+    $('div.sum').css('display', 'block');
   }
   document.getElementById('list').innerHTML = list;
+  sum();
 }
 
 function addItem() {
@@ -76,4 +79,10 @@ function inc(id, n) {
 function dec(id, n) {
   __Counters[id].count = parseInt(n, 10) - 1;
   return getAll();
+}
+
+function sum() {
+  var total = 0;
+  _.forEach(__Counters, (item) => { total += parseInt(item.count, 10); });
+  $('#total').text(total);
 }

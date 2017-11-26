@@ -29,7 +29,7 @@ button.glyphicon:disabled  {
 }
 
 div#list {
-  margin: 30px auto;
+  margin: 30px auto 0;
 }
 
 div.list-item:nth-child(odd) {
@@ -42,6 +42,11 @@ div.count {
   line-height: 34px;
 }
 
-div.bg-info {
+div.bg-info,
+div.bg-success {
   padding: 10px;
+}
+
+div.sum {
+  border-top: solid 1px #969696;
 }
