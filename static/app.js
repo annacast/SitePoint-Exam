@@ -12,8 +12,33 @@ $(document).ready(function(){
   $('#title').keyup(function(){
     $('#btn-submit').prop('disabled', _.isEmpty(this.value) ? true : false);
   })
-  return getAll(); // to get initial state
+  return getAllCounters(); // to get initial state
 });
+
+function getAllCounters() {
+  $.ajax({
+    method: "GET",
+    url: "/api/v1/counters",
+  }).done((res) => {
+    __Counters = _.cloneDeep(res);
+    getAll();
+  });
+}
+
+function post(url, data) {
+  $.ajax({
+    method: "POST",
+    url,
+    data: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).done((res) => {
+    // Do nothing
+  }).fail((err) => {
+    console.log('Fail:', err);
+  });
+}
 
 function genId() { // taken from Counters.js
   return (+new Date() + ~~(Math.random * 999999)).toString(36);
@@ -60,25 +85,40 @@ function getAll() {
 function addItem() {
   var id = genId();
   var title = $('#title').val();
-  __Counters[id] = {id: id, title: title, count: 0};
+  __Counters.push({id: id, title: title, count: 0});
+  post('/api/v1/counter', { title, data: __Counters });
   $('#title').val('');
   $('#btn-submit').prop('disabled',true);
-  return getAll();
+  return getAllCounters();
+}
+
+function getIndex(id) {
+  return __Counters.findIndex(() => { return id; });
 }
 
 function removeItem(id) {
-  delete __Counters[id];
-  return getAll();
+  __Counters.splice(getIndex(id));
+  $.ajax({
+    method: "DELETE",
+    url: '/api/v1/counter',
+    data: JSON.stringify({ id }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  return getAllCounters();
 }
 
 function inc(id, n) {
-  __Counters[id].count = parseInt(n, 10) + 1;
-  return getAll();
+  __Counters[getIndex(id)].count = parseInt(n, 10) + 1;
+  post('/api/v1/counter/inc', { id, data: __Counters });
+  return getAllCounters();
 }
 
 function dec(id, n) {
-  __Counters[id].count = parseInt(n, 10) - 1;
-  return getAll();
+  __Counters[getIndex(id)].count = parseInt(n, 10) - 1;
+  post('/api/v1/counter/dec', { id, data: __Counters });
+  return getAllCounters();
 }
 
 function sum() {
