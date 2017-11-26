@@ -1,4 +1,6 @@
-# SITEPOINT FRONTEND TEST
+# FRONTEND TEST
+
+> Written by annacast for SitePoint
 
 You need to create a simple counter application that can do the following:
 * Add a named counter to a list of counters
